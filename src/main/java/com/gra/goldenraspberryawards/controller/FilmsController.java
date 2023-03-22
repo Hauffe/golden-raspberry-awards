@@ -35,7 +35,6 @@ public class FilmsController {
 
         if (CSVHelper.hasCSVFormat(file)) {
             try {
-                log.info(String.valueOf(file));
                 filmService.save(file);
 
                 message = "Uploaded the file successfully: " + file.getOriginalFilename();

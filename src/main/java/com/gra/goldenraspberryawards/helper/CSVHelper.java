@@ -16,6 +16,8 @@ import org.apache.commons.csv.CSVRecord;
 
 public class CSVHelper {
     public static String TYPE = "text/csv";
+    public static char DELIMITER = ';';
+    public static String WIN = "yes";
     static String[] HEADERs = { "year", "title", "studios", "producers", "winner" };
 
     public static boolean hasCSVFormat(MultipartFile file) {
@@ -28,7 +30,7 @@ public class CSVHelper {
     public static List<Films> csvToFilms(InputStream is) {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
              CSVParser csvParser = new CSVParser(fileReader,
-                     CSVFormat.DEFAULT.withDelimiter(';').withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
+                     CSVFormat.DEFAULT.withDelimiter(DELIMITER).withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
 
             List<Films> films = new ArrayList<Films>();
 
@@ -41,7 +43,7 @@ public class CSVHelper {
                         csvRecord.get("title"),
                         csvRecord.get("studios"),
                         csvRecord.get("producers"),
-                        Boolean.parseBoolean(csvRecord.get("winner"))
+                        csvRecord.get("winner").equals(WIN)
                 );
 
                 films.add(film);
