@@ -1,0 +1,1 @@
+set to  CSVFormat.DEFAULT.withDelimiter(';'); bc file uses ; as delimiter
