@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: golden-raspberry-awards
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8887
