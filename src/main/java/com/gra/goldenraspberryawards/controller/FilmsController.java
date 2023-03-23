@@ -19,15 +19,15 @@ import java.util.Map;
 @Slf4j
 @CrossOrigin("http://localhost:8081")
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/raspberry")
 public class FilmsController {
 
     @Autowired
     FilmsService filmService;
 
-    @RequestMapping("")
-    public String hello() {
-        return "Golden Raspberry Awards Service (Version 1.0) created by Alexandre Hauffe";
+    @RequestMapping("/about")
+    public ResponseEntity<String> hello() {
+        return ResponseEntity.status(HttpStatus.OK).body("Golden Raspberry Awards Service (Version 1.0) created by Alexandre Hauffe");
     }
 
 

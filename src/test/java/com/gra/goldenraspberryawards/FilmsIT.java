@@ -43,7 +43,7 @@ public class FilmsIT {
 
         //Act
         final ResponseEntity<String> post =
-                testRestTemplate.postForEntity("/upload", new HttpEntity<>(multipart, headers()), String.class);
+                testRestTemplate.postForEntity("/raspberry/upload", new HttpEntity<>(multipart, headers()), String.class);
 
         //Assert
         assertEquals(HttpStatus.OK, post.getStatusCode());
@@ -58,7 +58,7 @@ public class FilmsIT {
 
         //Act
         final ResponseEntity<String> response =
-                testRestTemplate.getForEntity("/winners", String.class);
+                testRestTemplate.getForEntity("/raspberry/winners", String.class);
         var responseBody = objectMapper.readValue(response.getBody(), WinnerDto.class);
 
         //Act
