@@ -18,7 +18,6 @@ public class CSVHelper {
     public static String TYPE = "text/csv";
     public static char DELIMITER = ';';
     public static String WIN = "yes";
-    static String[] HEADERs = { "year", "title", "studios", "producers", "winner" };
 
     public static boolean hasCSVFormat(MultipartFile file) {
         if (!TYPE.equals(file.getContentType())) {

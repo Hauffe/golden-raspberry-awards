@@ -1,6 +1,7 @@
 package com.gra.goldenraspberryawards.controller;
 
 
+import com.gra.goldenraspberryawards.dto.WinnerDto;
 import com.gra.goldenraspberryawards.helper.CSVHelper;
 import com.gra.goldenraspberryawards.model.Films;
 import com.gra.goldenraspberryawards.service.FilmsService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @CrossOrigin("http://localhost:8081")
@@ -50,15 +52,26 @@ public class FilmsController {
     }
 
     @GetMapping("/films")
-    public ResponseEntity<List<Films>> getAllTutorials() {
+    public ResponseEntity<List<Films>> getAllFilms() {
         try {
-            List<Films> tutorials = filmService.getAllFilms();
+            List<Films> films = filmService.getAllFilms();
 
-            if (tutorials.isEmpty()) {
+            if (films.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
-            return new ResponseEntity<>(tutorials, HttpStatus.OK);
+            return new ResponseEntity<>(films, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/winners")
+    public ResponseEntity<WinnerDto> getWinners() {
+        try {
+            WinnerDto winners = filmService.getWinner();
+
+            return new ResponseEntity<>(winners, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
