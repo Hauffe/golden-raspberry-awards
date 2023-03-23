@@ -38,6 +38,7 @@ public class FilmsService {
         List<IntervalDto> intervalList = new ArrayList<>();
         for (Map.Entry<String, List<Integer>> entry : producerList.entrySet()){
             if(entry.getValue().size()>1){
+                Collections.sort(entry.getValue());
                 for(int i = 0; i<entry.getValue().size(); i++){
                     Integer previousWin = entry.getValue().get(i);
                     Integer followingWin = entry.getValue().get(++i);
@@ -46,7 +47,9 @@ public class FilmsService {
             }
         }
         Collections.sort(intervalList);
-        return new WinnerDto(intervalList, intervalList);
+        return new WinnerDto(
+                Arrays.asList(intervalList.get(0)),
+                Arrays.asList(intervalList.get(intervalList.size()-1)));
     }
 
     public Map<String, List<Integer>> getSequentialWinner() {
