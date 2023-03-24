@@ -77,4 +77,15 @@ public class FilmsController {
         }
     }
 
+    @DeleteMapping("/clear")
+    public ResponseEntity<String> clearBase() {
+        try {
+            String response = filmService.delete();
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

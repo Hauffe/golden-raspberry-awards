@@ -39,17 +39,36 @@ public class FilmsService {
         for (Map.Entry<String, List<Integer>> entry : producerList.entrySet()){
             if(entry.getValue().size()>1){
                 Collections.sort(entry.getValue());
-                for(int i = 0; i<entry.getValue().size(); i++){
-                    Integer previousWin = entry.getValue().get(i);
-                    Integer followingWin = entry.getValue().get(++i);
+                for(int first = 0, next = 1; next<entry.getValue().size(); first++, next = first+1){
+                    Integer previousWin = entry.getValue().get(first);
+                    Integer followingWin = entry.getValue().get(next);
                     intervalList.add(new IntervalDto(entry.getKey(), followingWin-previousWin, previousWin, followingWin));
                 }
             }
         }
         Collections.sort(intervalList);
-        return new WinnerDto(
-                Arrays.asList(intervalList.get(0)),
-                Arrays.asList(intervalList.get(intervalList.size()-1)));
+
+        return setWinnerLists(intervalList, intervalList.size());
+    }
+
+    public WinnerDto setWinnerLists(List<IntervalDto> intervalList, int size){
+        int first_position = 1;
+        int last_position = size-2;
+        WinnerDto winners = new WinnerDto();
+        winners.getMin().add(intervalList.get(0));
+        winners.getMax().add(intervalList.get(size-1));
+
+        while (intervalList.get(first_position).getInterval() == intervalList.get(0).getInterval()){
+            winners.getMin().add(intervalList.get(first_position));
+            first_position ++;
+        }
+
+        while (intervalList.get(last_position).getInterval() == intervalList.get(size-1).getInterval()){
+            winners.getMax().add(intervalList.get(last_position));
+            last_position --;
+        }
+
+        return winners;
     }
 
     public Map<String, List<Integer>> getSequentialWinner() {
@@ -71,5 +90,10 @@ public class FilmsService {
             }
         }
         return producerList;
+    }
+
+    public String delete() {
+        repository.deleteAll();
+        return "Database cleared";
     }
 }
