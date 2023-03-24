@@ -48,10 +48,10 @@ public class FilmsService {
         }
         Collections.sort(intervalList);
 
-        return setWinnerLists(intervalList, intervalList.size());
+        return setMinMaxLists(intervalList, intervalList.size());
     }
 
-    public WinnerDto setWinnerLists(List<IntervalDto> intervalList, int size){
+    public WinnerDto setMinMaxLists(List<IntervalDto> intervalList, int size){
         int first_position = 1;
         int last_position = size-2;
         WinnerDto winners = new WinnerDto();
