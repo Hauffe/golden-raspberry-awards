@@ -38,7 +38,7 @@ public class FilmsIT {
     @Test
     @Order(1)
     void upload() {
-        //Assert
+        //Arrange
         var multipart = new LinkedMultiValueMap<>();
         multipart.add("file", file("movielist.csv"));
 
@@ -54,7 +54,7 @@ public class FilmsIT {
     @Test
     @Order(2)
     void winners() throws JsonProcessingException {
-        //Assert
+        //Arrange
         WinnerDto expectedResponseBody = generateExpectedWinnerDto();
 
         //Act
@@ -62,7 +62,7 @@ public class FilmsIT {
                 testRestTemplate.getForEntity("/raspberry/winners", String.class);
         var responseBody = objectMapper.readValue(response.getBody(), WinnerDto.class);
 
-        //Act
+        //Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedResponseBody.toString(), responseBody.toString());
     }
@@ -77,7 +77,7 @@ public class FilmsIT {
     @Test
     @Order(4)
     void uploadDuplicatedValues() {
-        //Assert
+        //Arrange
         var multipart = new LinkedMultiValueMap<>();
         multipart.add("file", file("movielist_replicated.csv"));
 
@@ -92,7 +92,7 @@ public class FilmsIT {
     @Test
     @Order(5)
     void winnersWithDuplicatedValues() throws JsonProcessingException {
-        //Assert
+        //Arrange
         WinnerDto expectedResponseBody = generateExpectedWinnerForDuplicatedDto();
 
         //Act
@@ -100,7 +100,7 @@ public class FilmsIT {
                 testRestTemplate.getForEntity("/raspberry/winners", String.class);
         var responseBody = objectMapper.readValue(response.getBody(), WinnerDto.class);
 
-        //Act
+        //Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedResponseBody.toString(), responseBody.toString());
     }
