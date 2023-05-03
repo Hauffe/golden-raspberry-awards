@@ -34,6 +34,7 @@ public class FilmsService {
 
 
     public WinnerDto getWinner() {
+        List<Integer> temp = new ArrayList<>();
         Map<String, List<Integer>> producerList = getSequentialWinner();
         List<IntervalDto> intervalList = new ArrayList<>();
         for (Map.Entry<String, List<Integer>> entry : producerList.entrySet()){
@@ -58,12 +59,12 @@ public class FilmsService {
         winners.getMin().add(intervalList.get(0));
         winners.getMax().add(intervalList.get(size-1));
 
-        while (intervalList.get(first_position).getInterval() == intervalList.get(0).getInterval()){
+        while (Objects.equals(intervalList.get(first_position).getInterval(), intervalList.get(0).getInterval())){
             winners.getMin().add(intervalList.get(first_position));
             first_position ++;
         }
 
-        while (intervalList.get(last_position).getInterval() == intervalList.get(size-1).getInterval()){
+        while (Objects.equals(intervalList.get(last_position).getInterval(), intervalList.get(size - 1).getInterval())){
             winners.getMax().add(intervalList.get(last_position));
             last_position --;
         }
